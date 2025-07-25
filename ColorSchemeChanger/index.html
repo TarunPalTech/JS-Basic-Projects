@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Color Scheme Switcher</title>
+    <style>
+      body {
+        background-color: black;
+        color: #fff;
+        display: flex;
+        flex-wrap: wrap;
+        height: 100vh;
+        justify-content: center;
+        align-items: center;
+      }
+      h1 {
+        text-align: center;
+      }
+      .button {
+        width: 100px;
+        height: 100px;
+        border: 2px solid #fff;
+        display: inline-block;
+      }
+      #grey {
+        background-color: grey;
+      }
+      #yellow {
+        background-color: yellow;
+      }
+      #black {
+        background-color: black;
+      }
+      #orange {
+        background-color: orange;
+      }
+      p {
+        text-align: center;
+        font-size: larger;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <h1>Color Scheme Switcher</h1>
+      <div id="buttons">
+        <span class="button" id="grey"></span>
+        <span class="button" id="yellow"></span>
+        <span class="button" id="black"></span>
+        <span class="button" id="orange"></span>
+      </div>
+      <p>
+        Try Clicking on one of the colors above <br />
+        to change the background color of this page!
+      </p>
+    </div>
+  </body>
+
+  <script>
+    /* First Method */
+    let buttons = document.querySelectorAll(".button");
+    let bodyColor = document.querySelector("body");
+    console.log(bodyColor);
+
+    buttons.forEach((button) => {
+      button.addEventListener("click", (e) => {
+        if (e.target.id == 'grey') {
+          bodyColor.style.backgroundColor = e.target.id;
+        } else if (e.target.id == "yellow") {
+          bodyColor.style.backgroundColor = e.target.id;
+        } else if (e.target.id == "black") {
+          bodyColor.style.backgroundColor = e.target.id;
+        } else if (e.target.id == "orange") {
+          bodyColor.style.backgroundColor = e.target.id;
+        }
+      });
+    });
+
+    /* Second Method */
+    // Array.from(document.querySelector("#buttons").children).forEach((item) => {
+    //   item.addEventListener("click", function () {
+    //     if (item.id == "grey") {
+    //       document.body.style.backgroundColor = "grey";
+    //     } else if (item.id == "yellow") {
+    //       document.body.style.backgroundColor = "yellow";
+    //     } else if (item.id == "black") {
+    //       document.body.style.backgroundColor = "black";
+    //     } else if (item.id == "orange") {
+    //       document.body.style.backgroundColor = "orange";
+    //     }
+    //   });
+    // });
+  </script>
+</html>
