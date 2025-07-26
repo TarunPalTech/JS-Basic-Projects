@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>KeyBoard Check</title>
+    <style>
+      body {
+        background-color: black;
+        color: aliceblue;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+      #container {
+        background-color: green;
+        padding: 30px 70px 50px 70px;
+      }
+      table {
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        border-collapse: collapse;
+        font-size: x-large;
+      }
+      th,
+      td {
+        border: 3px solid #fff;
+        padding: 7px 70px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container">
+      <h1>Press key and watch the magic</h1>
+      <div id="table"></div>
+    </div>
+  </body>
+  <script>
+    let insert = document.getElementById("table");
+    window.addEventListener("keydown", function (e) {
+      insert.innerHTML = `
+      <table>
+        <tr>
+          <th>Key</th>
+          <th>Code</th>
+        </tr>
+        <tr>
+          <td>${e.key}</td>
+          <td>${e.code}</td>
+        </tr>
+      </table>
+    `;
+    });
+  </script>
+</html>
