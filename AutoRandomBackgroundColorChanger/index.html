@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Auto Background Color Changer</title>
+    <style>
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 90vh;
+        background-color: black;
+        color: aliceblue;
+        text-align: center;
+      }
+      #buttons {
+        display: flex;
+        gap: 30px;
+        justify-content: center;
+      }
+      button {
+        padding: 10px 40px;
+        border-radius: 5px;
+        font-size: large;
+        font-weight: 600;
+        cursor: pointer;
+      }
+      button:hover {
+        background-color: orange;
+        color: #fff;
+        border: 1px solid #fff;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <h1>
+        Start should change the Background color <br />
+        every second
+      </h1>
+      <div id="buttons">
+        <button id="start">Start</button>
+        <button id="stop">Stop</button>
+      </div>
+    </div>
+  </body>
+  <script>
+    function randomColorGenerator() {
+      let hex = "0123456789abcdef";
+      let randomColor = "#";
+      for (let i = 0; i < 6; i++) {
+        randomColor += hex[Math.floor(Math.random() * 16)];
+      }
+      return randomColor;
+    }
+    randomColorGenerator();
+
+    let interval;
+    let startBackgroundColorChanger = function () {
+      if (!interval) interval = setInterval(changeColor, 1000);
+      function changeColor() {
+        document.body.style.backgroundColor = randomColorGenerator();
+      }
+    };
+
+    function stopBackgroundColorChanger() {
+      clearInterval(interval);
+      interval = null;
+    }
+    stopBackgroundColorChanger();
+
+    document
+      .getElementById("start")
+      .addEventListener("click", startBackgroundColorChanger);
+    document
+      .getElementById("stop")
+      .addEventListener("click", stopBackgroundColorChanger);
+  </script>
+</html>
