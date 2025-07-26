@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Number Guessing Game</title>
+    <style>
+      body {
+        background-color: black;
+        color: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        text-align: center;
+      }
+      #container {
+        background-color: green;
+        padding: 30px 50px;
+        border-radius: 20px;
+      }
+      form {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+      }
+      h1 {
+        color: #edc1c1;
+      }
+      p {
+        color: #ebbc7e;
+      }
+      h2 {
+        color: #7ce3e3;
+      }
+      input {
+        padding: 9px 0px;
+        border-radius: 5px;
+        border: 1px solid #fff;
+        background-color: #f3eeee;
+      }
+      button {
+        padding: 5px 15px;
+        border-radius: 10px;
+        border: 1px solid #fff;
+        margin-top: 20px;
+        color: #fff;
+        background-color: red;
+        font-size: x-large;
+        cursor: pointer;
+      }
+      button:hover {
+        background-color: #fff;
+        color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container">
+      <h1>Number Guessing Game</h1>
+      <div>
+        <p>Try and guess a random number between 1 and 100.</p>
+        <p>You have 10 attempts to guess the right number.</p>
+
+        <form action="">
+          <h2>Guess a number</h2>
+          <input type="number" name="number" id="number" />
+          <br />
+          <button type="submit" value="submit" style="display: block">
+            Submit Guess
+          </button>
+          <button type="submit" value="true" style="display: none">
+            Play Again
+          </button>
+        </form>
+        <p id="result"></p>
+        <p>Previous Guesses: <span id="prevGuesses"></span></p>
+        <p>Guesses Remaining: <span id="remainGuesses"></span></p>
+      </div>
+    </div>
+  </body>
+  <script>
+    let randomNumber = Math.floor(Math.random() * 100) + 1;
+    console.log(randomNumber);
+    guess = 10;
+    let prevGuesses = [];
+    document.querySelector("form").addEventListener("submit", (e) => {
+      e.preventDefault();
+      let number = parseInt(document.getElementById("number").value);
+      console.log(number);
+      if (number === randomNumber) {
+        document.getElementById("result").innerHTML = "You win!";
+        guess = 1;
+      } else if (randomNumber > number) {
+        document.getElementById("result").innerHTML =
+          "Your number is smaller than random number!";
+      } else {
+        document.getElementById("result").innerHTML =
+          "Your number is greater than random number!";
+      }
+      previousGuesses(number);
+
+      if (guess === 1) {
+        document.querySelector("button[value = true]").style.display = "block";
+        document.querySelector("button[value = submit]").style.display = "none";
+        remainingGuesses(0);
+        playAgain();
+      } else if (remainingGuesses(--guess) === 0) {
+        displayResult(randomNumber);
+        document.querySelector("button[value = true]").style.display = "block";
+        document.querySelector("button[value = submit]").style.display = "none";
+        playAgain();
+      }
+    });
+    function previousGuesses(number) {
+      prevGuesses.push(number);
+      document.getElementById("prevGuesses").innerHTML = prevGuesses;
+    }
+    function remainingGuesses(guess) {
+      document.getElementById("remainGuesses").innerHTML = guess;
+      return guess;
+    }
+    function displayResult(randomNumber) {
+      document.getElementById(
+        "result"
+      ).innerHTML = `Random number was ${randomNumber}!`;
+      document.querySelector("button[value = submit]").style.display = "none";
+    }
+    function playAgain() {
+      document
+        .querySelector("button[value = true]")
+        .addEventListener("click", (e) => {
+          location.reload();
+          document.querySelector("button[value = submit]").style.display =
+            "block";
+          document.querySelector("button[value = true]").style.display = "none";
+        });
+    }
+  </script>
+</html>
