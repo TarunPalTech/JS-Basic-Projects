@@ -1,0 +1,94 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Tailwind PostCSS Setup</title>
+    <link href="output.css" rel="stylesheet" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  </head>
+  <body class="grid place-content-center h-screen">
+    <div class="card text-white bg-black w-sm sm:w-md rounded-3xl">
+      <div class="image-title flex flex-col items-center pt-12">
+        <img class="rounded-full w-36" alt="my github profile image" />
+        <h1 class="pt-2.5 text-2xl font-bold"></h1>
+        <h2 class="pt-2.5 pb-2.5 font-serif"></h2>
+        <p class="pl-9 pr-9 text-blue-400"></p>
+      </div>
+      <div class="flex flex-col gap-y-2 my-3.5">
+        <div id="location" class="pl-9 pr-9"></div>
+        <div id="company" class="pl-9 pr-9"></div>
+        <div id="website" class="pl-9 pr-9"></div>
+        <div id="twitter" class="pl-9 pr-9"></div>
+        <div id="joined-date" class="pl-9 pr-9"></div>
+      </div>
+      <div class="profile_info flex justify-around pl-9 pr-9">
+        <span class="flex flex-col text-center">
+          <span class="repo"></span>
+          <span>Repositories</span>
+        </span>
+        <span class="flex flex-col text-center">
+          <span class="followers"></span>
+          <span>Followers</span>
+        </span>
+        <span class="flex flex-col text-center">
+          <span class="following"></span>
+          <span>Following</span>
+        </span>
+      </div>
+      <div class="text-center">
+        <a target="_blank"
+          class="bg-blue-700 mx-auto my-5 px-7 py-2 w-[90%] rounded-xl block font-bold text-xl border-2 hover:bg-orange-600 cursor-pointer">
+          View GitHub Profile
+        </a>
+      </div>
+    </div>
+  </body>
+  <script>
+    /* I'm making XML HTTP Request */
+
+    const requesURL = "https://api.github.com/users/TarunPalTech";
+    const xhr = new XMLHttpRequest();
+    xhr.open("GET", requesURL);
+    xhr.onreadystatechange = function () {
+      console.log(xhr.readyState);
+      if (xhr.readyState === 4) {
+        const data = JSON.parse(xhr.responseText);
+        console.log(data);
+        console.log(data.avatar_url);
+        document
+          .querySelector("img")
+          .setAttribute(
+            "src",
+            "https://avatars.githubusercontent.com/u/139231055?v=4"
+          );
+        document.querySelector("h1").innerHTML = data.name;
+        document.querySelector("h2").innerHTML = data.login;
+        document.querySelector("p").innerHTML = data.bio;
+        document.querySelector(
+          "#location"
+        ).innerHTML = `<i class="fa-solid fa-location-dot"></i> ${data.location}`;
+        document.querySelector(
+          "#company"
+        ).innerHTML = `<i class="fa-solid fa-building"></i> ${data.company}`;
+
+        document.querySelector(
+          "#twitter"
+        ).innerHTML = `<i class="fa-brands fa-twitter text-blue-500"></i> ${data.twitter_username}`;
+
+        document.querySelector(
+          "#joined-date"
+        ).innerHTML = `<i class="fa-solid fa-calendar-days"></i> ${data.created_at}`;
+
+        document.querySelector(".repo").textContent = data.public_repos;
+        document.querySelector(".followers").innerHTML = data.followers;
+        document.querySelector(".following").innerHTML = data.following;
+        document.querySelector("a").setAttribute('href', data.html_url)
+      }
+    };
+
+    xhr.send();
+  </script>
+</html>
